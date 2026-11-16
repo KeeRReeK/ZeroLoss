@@ -9,14 +9,20 @@ struct HomeView: View {
             }
             Spacer()
             
-            RoundedRectangle(cornerRadius: 25)
-                .frame(height: 100)
-                .foregroundStyle(.backgroundLottery)
-                .padding(.horizontal, 50)
-                .overlay {
-                    Text("VINNI")
-                        .font(.title.bold())
-                }
+            Button {
+                
+            } label: {
+                RoundedRectangle(cornerRadius: 25)
+                    .frame(height: 100)
+                    .foregroundStyle(.backgroundVinniLottery)
+                    .padding(.horizontal, 50)
+                    .overlay {
+                        Text("VINNI")
+                            .font(.custom("FontdinerSwanky-Regular", size: 35))
+                            .foregroundStyle(.white)
+                    }
+            }
+            
             lotteryExample()
             lotteryExample()
             lotteryExample()
@@ -30,7 +36,7 @@ struct HomeView: View {
     private func lotteryExample() -> some View {
         RoundedRectangle(cornerRadius: 25)
             .frame(height: 100)
-            .foregroundStyle(.backgroundLottery)
+            .foregroundStyle(.backgroundCustomLottery)
             .padding(.horizontal, 50)
             .overlay {
                 Text("Comming soon...")
