@@ -5,14 +5,18 @@ struct HomeView: View {
         VStack {
             HStack {
                 Spacer()
-                RoundedRectangle(cornerRadius: 25)
-                    .frame(width: 200, height: 70)
-                    .foregroundStyle(.backgroundCoins)
-                    .padding()
+                BalanceWidgetView()
             }
             Spacer()
             
-            
+            RoundedRectangle(cornerRadius: 25)
+                .frame(height: 100)
+                .foregroundStyle(.backgroundLottery)
+                .padding(.horizontal, 50)
+                .overlay {
+                    Text("VINNI")
+                        .font(.title.bold())
+                }
             lotteryExample()
             lotteryExample()
             lotteryExample()
