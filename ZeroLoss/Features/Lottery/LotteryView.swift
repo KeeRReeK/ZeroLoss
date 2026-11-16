@@ -3,10 +3,6 @@ import SwiftUI
 struct LotteryView: View {
     var body: some View {
         VStack {
-            HStack {
-                Spacer()
-                BalanceWidgetView()
-            }
             Spacer()
             LotteryEmptyView()
             LotteryContentView()
@@ -14,6 +10,18 @@ struct LotteryView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.backgroundCustomLottery)
+        .toolbar {
+            if #available(iOS 26, *) {
+                ToolbarItem(placement: .topBarTrailing) {
+                    BalanceWidgetView()
+                }
+                .sharedBackgroundVisibility(.hidden)
+            } else {
+                ToolbarItem(placement: .topBarTrailing) {
+                    BalanceWidgetView()
+                }
+            }
+        }
     }
 }
 
