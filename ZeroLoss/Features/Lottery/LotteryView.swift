@@ -9,6 +9,7 @@ struct LotteryView: View {
             }
             Spacer()
             LotteryEmptyView()
+            LotteryContentView()
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
