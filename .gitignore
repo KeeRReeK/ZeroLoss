@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+
+# Xcode: user-specific settings (window state, breakpoints, schemes)
+xcuserdata/
+DerivedData/
+*.xcuserstate
+
+# Builds and archives
+build/
+*.ipa
+*.dSYM
+*.dSYM.zip
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# Secrets (API keys, etc.)
+Secrets.xcconfig
+*.env
