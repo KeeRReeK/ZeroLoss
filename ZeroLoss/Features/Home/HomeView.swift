@@ -52,7 +52,7 @@ struct HomeView: View {
             .foregroundStyle(.backgroundCustomLottery)
             .padding(.horizontal, 50)
             .overlay {
-                Text("Comming soon...")
+                Text("Coming soon...")
                     .font(.title.bold())
             }
     }
