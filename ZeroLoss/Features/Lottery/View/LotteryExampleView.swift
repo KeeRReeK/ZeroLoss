@@ -71,6 +71,7 @@ struct LotteryExampleView: View {
                     )
                 )
         }
+        .buttonStyle(.plain)
         .disabled(ticket.isWinning)
     }
 

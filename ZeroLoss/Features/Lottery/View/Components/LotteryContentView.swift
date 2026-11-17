@@ -7,14 +7,17 @@ struct LotteryContentView: View {
     let lottery: Results<VinniTicket>
     
     var body: some View {
-        ScrollView {
-            LazyVStack(spacing: 16) {
-                ForEach(lottery) { ticket in
-                    LotteryExampleView(viewModel: viewModel, ticket: ticket)
-                }
+        List {
+            ForEach(lottery) { ticket in
+                LotteryExampleView(viewModel: viewModel, ticket: ticket)
+                    .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
+                    .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
             }
-            .padding(.vertical)
         }
+        .listStyle(.plain)
+        .scrollContentBackground(.hidden)
+        .contentMargins(.vertical, 8, for: .scrollContent)
     }
 }
 
