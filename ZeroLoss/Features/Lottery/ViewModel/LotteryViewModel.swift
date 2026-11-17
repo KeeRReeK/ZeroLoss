@@ -8,6 +8,7 @@ import Observation
 final class LotteryViewModel {
     var isGenerating: Bool = false
     var errorMessage: String? = nil
+    var tickets: Results<VinniTicket>?
     
     func purchasing100kLotteryTickets() {
         guard !isGenerating else {
@@ -35,7 +36,7 @@ final class LotteryViewModel {
                 for i in 1...100000 {
                     let ticket = VinniTicket()
                     ticket.number = i
-                    ticket.isWinning = Bool.random()
+                    ticket.isWinning = false
                     ticket.profit = Int.random(in: 0...50)
                     ticket.codeNumber = "VINNI-\(Int.random(in: 10000...99999))"
                     ticket.bearColor = colors.randomElement()!
@@ -49,6 +50,7 @@ final class LotteryViewModel {
                 
                 DispatchQueue.main.async {
                     self.isGenerating = false
+                    self.loadTickets()
                 }
             } catch {
                 print("Error while saving: \(error)")
@@ -57,6 +59,42 @@ final class LotteryViewModel {
                     self.isGenerating = false
                 }
             }
+        }
+    }
+    
+    func loadTickets() {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            do {
+                let realm = try Realm()
+                let frozenTickets = realm.objects(VinniTicket.self)
+                    .sorted(byKeyPath: "number", ascending: true)
+                    .freeze()
+                
+                DispatchQueue.main.async {
+                    self?.tickets = frozenTickets
+                }
+            } catch {
+                print("Error while loading: \(error)")
+                DispatchQueue.main.async {
+                    self?.errorMessage = error.localizedDescription
+                }
+            }
+        }
+    }
+    
+    func openTicket(_ ticket: VinniTicket) {
+        do {
+            let realm = try Realm()
+            guard let liveTicket = realm.object(ofType: VinniTicket.self, forPrimaryKey: ticket.id) else {
+                return
+            }
+            try realm.write {
+                liveTicket.isWinning = true
+            }
+            loadTickets()
+        } catch {
+            print("Error while opening ticket: \(error)")
+            errorMessage = error.localizedDescription
         }
     }
 }
