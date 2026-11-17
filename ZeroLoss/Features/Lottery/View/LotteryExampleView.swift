@@ -22,7 +22,7 @@ struct LotteryExampleView: View {
                 HStack {
                     numberLottery()
                     Spacer()
-                    Text("VINNI")
+                    Text(ticket.lottery.first?.title.uppercased() ?? "VINNI")
                         .font(.custom("FontdinerSwanky-Regular", size: 25))
                         .foregroundStyle(.backgroundVinniLottery)
                     Spacer()

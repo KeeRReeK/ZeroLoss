@@ -26,7 +26,7 @@ final class LotteryViewModel {
                 let realm = try Realm()
                 
                 let lottery = Lottery()
-                lottery.title = "Vinni"
+                lottery.title = "VINNI"
                 
                 var newLottery: [VinniTicket] = []
                 newLottery.reserveCapacity(100000)
