@@ -1,9 +1,12 @@
 import SwiftUI
 
 struct LotteryEmptyView: View {
+    
+    let viewModel: LotteryViewModel
+    
     var body: some View {
         Button{
-            
+            viewModel.purchasing100kLotteryTickets()
         } label: {
             Text("Buy 100k bilets")
                 .font(.custom("FontdinerSwanky-Regular", size: 35))
@@ -18,5 +21,5 @@ struct LotteryEmptyView: View {
 }
 
 #Preview {
-    LotteryEmptyView()
+    LotteryEmptyView(viewModel: LotteryViewModel())
 }

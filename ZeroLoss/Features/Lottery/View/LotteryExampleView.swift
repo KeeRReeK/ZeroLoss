@@ -1,8 +1,22 @@
-
 import SwiftUI
+import Realm
 
-struct ClosedLotteryView: View {
+struct LotteryExampleView: View {
+
+    let viewModel: LotteryViewModel
+    let ticket: VinniTicket
+
     var body: some View {
+        RoundedRectangle(cornerRadius: 25)
+            .frame(height: 160)
+            .foregroundStyle(.black.opacity(0.1))
+            .overlay {
+                ticketContent()
+            }
+            .padding(.horizontal, 20)
+    }
+
+    private func ticketContent() -> some View {
         HStack(spacing: 0) {
             VStack {
                 HStack {
@@ -16,12 +30,12 @@ struct ClosedLotteryView: View {
                 Spacer()
                 HStack {
                     Spacer()
-                    Text("z25j8577a3d")
+                    Text(ticket.codeNumber)
                         .font(.title2.bold())
                     Spacer()
                     Image(systemName: "teddybear.fill")
                         .font(.largeTitle)
-                        .foregroundStyle(.red)
+                        .foregroundStyle(ticket.bearSwiftUIColor)
                     Spacer()
                 }
                 Spacer()
@@ -33,12 +47,12 @@ struct ClosedLotteryView: View {
             openButton()
         }
     }
-    
+
     private func openButton() -> some View {
         Button {
-            
+            viewModel.openTicket(ticket)
         } label: {
-            Text("open")
+            buttonLabel()
                 .font(.title3.bold())
                 .foregroundStyle(.black)
                 .padding()
@@ -57,8 +71,21 @@ struct ClosedLotteryView: View {
                     )
                 )
         }
+        .disabled(ticket.isWinning)
     }
-    
+
+    @ViewBuilder
+    private func buttonLabel() -> some View {
+        if ticket.isWinning {
+            HStack(spacing: 2) {
+                Text("+\(ticket.profit)")
+                Image(systemName: "bitcoinsign.circle.fill")
+            }
+        } else {
+            Text("open")
+        }
+    }
+
     private func numberLottery() -> some View {
         UnevenRoundedRectangle(
             topLeadingRadius: 25,
@@ -67,12 +94,12 @@ struct ClosedLotteryView: View {
         .frame(width: 150, height: 50)
         .foregroundStyle(.blue.opacity(0.5))
         .overlay {
-            Text("100 000")
+            Text("\(ticket.number)")
                 .font(.title2.bold())
         }
     }
 }
 
 #Preview {
-    ClosedLotteryView()
+    LotteryExampleView(viewModel: LotteryViewModel(), ticket: VinniTicket())
 }

@@ -1,9 +1,11 @@
 import SwiftUI
 
 struct BalanceWidgetView: View {
+    @AppStorage(StorageKeys.balance) private var balance: Int = BalanceStorage.initial
+    
     var body: some View {
         Label{
-            Text("100")
+            Text(balance.shortFormatted)
         } icon: {
             Image(systemName: "bitcoinsign.circle.fill")
                 .foregroundStyle(.black)
