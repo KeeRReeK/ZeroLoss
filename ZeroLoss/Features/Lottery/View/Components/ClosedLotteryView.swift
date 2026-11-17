@@ -1,7 +1,11 @@
-
 import SwiftUI
+import Realm
 
 struct ClosedLotteryView: View {
+    
+    let viewModel: LotteryViewModel
+    let ticket: VinniTicket
+    
     var body: some View {
         HStack(spacing: 0) {
             VStack {
@@ -16,7 +20,7 @@ struct ClosedLotteryView: View {
                 Spacer()
                 HStack {
                     Spacer()
-                    Text("z25j8577a3d")
+                    Text(ticket.codeNumber)
                         .font(.title2.bold())
                     Spacer()
                     Image(systemName: "teddybear.fill")
@@ -36,7 +40,7 @@ struct ClosedLotteryView: View {
     
     private func openButton() -> some View {
         Button {
-            
+            viewModel.openTicket(ticket)
         } label: {
             Text("open")
                 .font(.title3.bold())
@@ -67,12 +71,12 @@ struct ClosedLotteryView: View {
         .frame(width: 150, height: 50)
         .foregroundStyle(.blue.opacity(0.5))
         .overlay {
-            Text("100 000")
+            Text("\(ticket.number)")
                 .font(.title2.bold())
         }
     }
 }
 
 #Preview {
-    ClosedLotteryView()
+    ClosedLotteryView(viewModel: LotteryViewModel(), ticket: VinniTicket())
 }
