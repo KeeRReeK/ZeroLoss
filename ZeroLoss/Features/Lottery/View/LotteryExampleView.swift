@@ -35,7 +35,7 @@ struct LotteryExampleView: View {
                     Spacer()
                     Image(systemName: "teddybear.fill")
                         .font(.largeTitle)
-                        .foregroundStyle(.red)
+                        .foregroundStyle(ticket.bearSwiftUIColor)
                     Spacer()
                 }
                 Spacer()

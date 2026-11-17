@@ -31,15 +31,13 @@ final class LotteryViewModel {
                 var newLottery: [VinniTicket] = []
                 newLottery.reserveCapacity(100000)
                 
-                let colors = ["Red", "Blue", "Green", "Yellow"]
-                
                 for i in 1...100000 {
                     let ticket = VinniTicket()
                     ticket.number = i
                     ticket.isWinning = false
                     ticket.profit = Int.random(in: 0...50)
                     ticket.codeNumber = "VINNI-\(Int.random(in: 10000...99999))"
-                    ticket.bearColor = colors.randomElement()!
+                    ticket.bearColor = BearColor.allCases.randomElement()!.rawValue
                     newLottery.append(ticket)
                 }
                 
