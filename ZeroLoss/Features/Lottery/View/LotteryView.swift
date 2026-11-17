@@ -9,7 +9,6 @@ struct LotteryView: View {
             Spacer()
             if viewModel.isGenerating {
                 ProgressView()
-                    .scaleEffect(1.5)
             } else if let tickets = viewModel.tickets, !tickets.isEmpty {
                 LotteryContentView(viewModel: viewModel, lottery: tickets)
             } else {

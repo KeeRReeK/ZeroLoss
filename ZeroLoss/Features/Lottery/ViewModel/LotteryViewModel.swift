@@ -91,6 +91,7 @@ final class LotteryViewModel {
             try realm.write {
                 liveTicket.isWinning = true
             }
+            BalanceStorage.add(liveTicket.profit)
             loadTickets()
         } catch {
             print("Error while opening ticket: \(error)")
