@@ -52,9 +52,18 @@
         "compile-sources",
         "frameworks",
         "resources",
+        {
+          "kind": "copy",
+          "name": "Embed Frameworks",
+          "bundle-base-path": "frameworks-directory",
+        },
       ],
       "package-product-members": [
         {
+          "package": "realm-swift",
+          "product-name": "RealmSwift",
+          "build-phase": { "build-phase": "copy/Embed Frameworks", "code-sign-on-copy": true },
+        }, {
           "package": "realm-swift",
           "product-name": "RealmSwift",
           "build-phase": { "build-phase": "frameworks" },

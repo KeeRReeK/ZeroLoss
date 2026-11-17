@@ -72,12 +72,12 @@ struct LotteryExampleView: View {
                 )
         }
         .buttonStyle(.plain)
-        .disabled(ticket.isWinning)
+        .disabled(viewModel.isOpened(ticket))
     }
 
     @ViewBuilder
     private func buttonLabel() -> some View {
-        if ticket.isWinning {
+        if viewModel.isOpened(ticket) {
             HStack(spacing: 2) {
                 Text("+\(ticket.profit)")
                 Image(systemName: "bitcoinsign.circle.fill")
