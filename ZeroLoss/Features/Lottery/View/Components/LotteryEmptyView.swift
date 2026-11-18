@@ -6,7 +6,9 @@ struct LotteryEmptyView: View {
     
     var body: some View {
         Button{
-            viewModel.purchasing100kLotteryTickets()
+            Task {
+                await viewModel.generateTickets()
+            }
         } label: {
             Text("Buy 100k bilets")
                 .font(.custom("FontdinerSwanky-Regular", size: 35))

@@ -2,7 +2,7 @@ import RealmSwift
 import Realm
 import Foundation
 
-class VinniTicket: Object, Identifiable {
+nonisolated class VinniTicket: Object, Identifiable {
     @Persisted(primaryKey: true) var id: UUID = UUID()
     @Persisted(indexed: true) var number: Int = 0
     @Persisted var isWinning: Bool = false
