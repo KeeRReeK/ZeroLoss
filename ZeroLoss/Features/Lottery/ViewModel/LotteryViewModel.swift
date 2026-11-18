@@ -78,7 +78,7 @@ final class LotteryViewModel {
         
         do {
             let page = try await Task.detached(priority: .userInitiated) {
-                try await repository.fetchPage(offset: offset, limit: limit)
+                try repository.fetchPage(offset: offset, limit: limit)
             }.value
             
             totalCount = page.totalCount
@@ -99,7 +99,7 @@ final class LotteryViewModel {
         
         do {
             try await Task.detached(priority: .userInitiated) {
-                try await repository.generateTickets()
+                try repository.generateTickets()
             }.value
             
             await reload()
@@ -123,7 +123,7 @@ final class LotteryViewModel {
         Task {
             do {
                 try await Task.detached(priority: .userInitiated) {
-                    try await repository.openTicket(id: id)
+                    try repository.openTicket(id: id)
                 }.value
             } catch {
                 if let index = items.firstIndex(where: {$0.id == id}) {
