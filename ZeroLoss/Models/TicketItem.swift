@@ -3,9 +3,9 @@ import SwiftUI
 
 struct TicketItem: Identifiable, Equatable, Sendable {
     let id: UUID
-    let number: String
+    let number: Int
     let codeNumber: String
-    let ptofit: Int
+    let profit: Int
     let bearColor: Color
     var isOpened: Bool
 }
