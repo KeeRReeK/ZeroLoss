@@ -1,10 +1,14 @@
 import SwiftUI
-import Realm
 
-struct LotteryExampleView: View {
+struct LotteryExampleView: View, Equatable {
 
-    let viewModel: LotteryViewModel
-    let ticket: VinniTicket
+    let ticket: TicketItem
+    let lotteryTitle: String
+    let onOpen: () -> Void
+    
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.ticket == rhs.ticket && lhs.lotteryTitle == rhs.lotteryTitle
+    }
 
     var body: some View {
         RoundedRectangle(cornerRadius: 25)
@@ -22,7 +26,7 @@ struct LotteryExampleView: View {
                 HStack {
                     numberLottery()
                     Spacer()
-                    Text(ticket.lottery.first?.title.uppercased() ?? "VINNI")
+                    Text(lotteryTitle)
                         .font(.custom("FontdinerSwanky-Regular", size: 25))
                         .foregroundStyle(.backgroundVinniLottery)
                     Spacer()
@@ -35,7 +39,7 @@ struct LotteryExampleView: View {
                     Spacer()
                     Image(systemName: "teddybear.fill")
                         .font(.largeTitle)
-                        .foregroundStyle(ticket.bearSwiftUIColor)
+                        .foregroundStyle(ticket.bearColor)
                     Spacer()
                 }
                 Spacer()
@@ -50,7 +54,7 @@ struct LotteryExampleView: View {
 
     private func openButton() -> some View {
         Button {
-            viewModel.openTicket(ticket)
+            onOpen()
         } label: {
             buttonLabel()
                 .font(.title3.bold())
@@ -72,12 +76,12 @@ struct LotteryExampleView: View {
                 )
         }
         .buttonStyle(.plain)
-        .disabled(viewModel.isOpened(ticket))
+        .disabled(ticket.isOpened)
     }
 
     @ViewBuilder
     private func buttonLabel() -> some View {
-        if viewModel.isOpened(ticket) {
+        if ticket.isOpened {
             HStack(spacing: 2) {
                 Text("+\(ticket.profit)")
                 Image(systemName: "bitcoinsign.circle.fill")
@@ -102,5 +106,16 @@ struct LotteryExampleView: View {
 }
 
 #Preview {
-    LotteryExampleView(viewModel: LotteryViewModel(), ticket: VinniTicket())
+    LotteryExampleView(
+        ticket: TicketItem(
+            id: UUID(),
+            number: 1,
+            codeNumber: "VINNI-12345",
+            profit: 25,
+            bearColor: .orange,
+            isOpened: false
+        ),
+        lotteryTitle: "VINNI",
+        onOpen: {}
+    )
 }

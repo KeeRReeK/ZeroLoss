@@ -1,7 +1,4 @@
 import Foundation
-import RealmSwift
-import Realm
-import Observation
 
 @Observable
 @MainActor
@@ -44,15 +41,22 @@ final class LotteryViewModel {
     }
     
     func ticketAppeared(_ ticket: TicketItem) {
-        let thresholdIndex = items.count - prefetchDistance
-        guard items.indices.contains(thresholdIndex),
-              items[thresholdIndex].id == ticket.id else {
+        guard hasMore, !isLoadingPage else {
             return
         }
-        Task {
-            await loadNextPage()
+        guard items.suffix(prefetchDistance).contains(where: { $0.id == ticket.id }) else {
+            return
         }
+        Task { await loadNextPage() }
     }
+    
+    func loadMoreIfNeeded() {
+        guard hasMore, !isLoadingPage else {
+            return
+        }
+        Task { await loadNextPage() }
+    }
+
     
     private func loadNextPage() async {
         guard !isLoadingPage else {
