@@ -2,7 +2,7 @@ import Foundation
 import RealmSwift
 import SwiftUI
 
-struct LotteryRepository: Sendable {
+nonisolated struct LotteryRepository: Sendable {
     
     func fetchPage(offset: Int, limit: Int) throws -> TicketPage {
         let realm = try Realm()

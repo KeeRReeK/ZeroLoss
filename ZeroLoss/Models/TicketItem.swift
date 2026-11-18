@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct TicketItem: Identifiable, Equatable, Sendable {
+nonisolated struct TicketItem: Identifiable, Equatable, Sendable {
     let id: UUID
     let number: Int
     let codeNumber: String
@@ -10,7 +10,7 @@ struct TicketItem: Identifiable, Equatable, Sendable {
     var isOpened: Bool
 }
 
-struct TicketPage: Sendable {
+nonisolated struct TicketPage: Sendable {
     let items: [TicketItem]
     let totalCount: Int
     let lotteryTitle: String
